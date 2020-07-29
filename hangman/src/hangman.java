@@ -60,7 +60,7 @@ public class hangman extends JFrame{
 		
 		answer = (JOptionPane.showInputDialog("Enter a word to guess")).toUpperCase();
 		allowedMisses = Integer.parseInt(JOptionPane.showInputDialog("How many mistakes are allowed?"));
-		
+		tries.setText("Tries left: " + Integer.toString(allowedMisses-misses));
 		JPanel panel = new JPanel();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((dim.width/2-this.getSize().width/2)-FRAME_WIDTH/2, 
