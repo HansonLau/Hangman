@@ -48,7 +48,7 @@ public class hangman extends JFrame{
 	
 ///////// USER INPUT //////////////////////////////////////
 	private int allowedMisses; 
-	private String answer = "HANSON";
+	private String answer;
 	private ArrayList<String> guesses = new ArrayList<String>();
 ///////////////////////////////////////////////////////////
 	
@@ -136,10 +136,37 @@ public class hangman extends JFrame{
 	    	}
 	    	else {
 	    		((JComponent) e.getSource()).setBackground(Color.GREEN);
+	    		guesses.add(letter);
+	    		change(letter);
 	    	}
 	    }
     
 	}
+	
+	public void change(String letter) {
+		
+		String temp = answer;
+		int index = temp.indexOf(letter);
+		String newWord = word.getText();
+
+		while (temp.indexOf(letter) != -1) {
+			System.out.println("newWord 0:" + newWord);
+			System.out.println("index: "+ index);
+			System.out.println("adding:" + newWord.substring(index*2+1));
+			newWord = newWord.substring(0, 2*index) + letter + newWord.substring(index*2+1);
+			System.out.println("newWord 1:" + newWord);
+			System.out.println("newWord 2:" + newWord);
+			temp = answer.substring(index+1);
+			index = temp.indexOf(letter) + answer.length()-temp.length();
+			
+			
+		}
+		
+		
+		word.setText(newWord);
+		
+	}
+		
 	
 	public void ending() {
 		this.dispose();
