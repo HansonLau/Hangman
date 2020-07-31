@@ -150,18 +150,10 @@ public class hangman extends JFrame{
 		String newWord = word.getText();
 
 		while (temp.indexOf(letter) != -1) {
-			System.out.println("newWord 0:" + newWord);
-			System.out.println("index: "+ index);
-			System.out.println("adding:" + newWord.substring(index*2+1));
 			newWord = newWord.substring(0, 2*index) + letter + newWord.substring(index*2+1);
-			System.out.println("newWord 1:" + newWord);
-			System.out.println("newWord 2:" + newWord);
 			temp = answer.substring(index+1);
 			index = temp.indexOf(letter) + answer.length()-temp.length();
-			
-			
 		}
-		
 		
 		word.setText(newWord);
 		
@@ -227,9 +219,7 @@ public class hangman extends JFrame{
 		    		restarting();
 		    	}
 		    }
-	    
 		}
-		
 	}
 	
 	
