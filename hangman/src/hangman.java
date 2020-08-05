@@ -126,6 +126,9 @@ public class hangman extends JFrame{
 	    	guesses.add(letter);
 	    	((Component) e.getSource()).setEnabled(false);
 	    	
+	    	if(word.getText().indexOf("_") == -1) 
+	    		winning();
+	    
 	    	if(answer.indexOf(letter) == -1) {
 		    	((JComponent) e.getSource()).setBackground(Color.RED);
 		    	misses++;
@@ -138,6 +141,8 @@ public class hangman extends JFrame{
 	    		((JComponent) e.getSource()).setBackground(Color.GREEN);
 	    		guesses.add(letter);
 	    		change(letter);
+	    		if(word.getText().indexOf("_") == -1) 
+		    		winning();
 	    	}
 	    }
     
@@ -158,7 +163,11 @@ public class hangman extends JFrame{
 		word.setText(newWord);
 		
 	}
-		
+	
+	public void winning() {
+		this.dispose();
+		new win();
+	}
 	
 	public void ending() {
 		this.dispose();
@@ -168,6 +177,59 @@ public class hangman extends JFrame{
 	public void restarting() {
 		this.dispose();
 		new hangman();
+	}
+	
+	public class win extends JFrame{
+		private final int FRAME_HEIGHT3 = 550, FRAME_WIDTH3 = 880;
+		private JLabel reveal = new JLabel("The answer was: " + answer);
+		private JLabel talk = new JLabel("Congratulations on winning!");
+		private JButton restart = new JButton("Again");
+		private JButton exit = new JButton("Exit");
+		ClickListener3 cl3 = new ClickListener3(); // for post-game
+		
+		public win() {
+			
+			JPanel panel2 = new JPanel();
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			this.setLocation((dim.width/2-this.getSize().width/2)-FRAME_WIDTH3/2, (dim.height/2-this.getSize().height/2)-FRAME_HEIGHT3/2);
+			this.setSize(FRAME_WIDTH3, FRAME_HEIGHT3);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setTitle("Results");
+			this.add(panel2);
+			
+			panel2.setLayout(null);
+			panel2.add(reveal);
+			panel2.add(talk);
+			panel2.add(restart);
+			panel2.add(exit);
+			reveal.setBounds(0, 10, 900, 200);
+			talk.setBounds(120, 200, 700, 200);
+			restart.setBounds(500, 400, 300, 100);
+			exit.setBounds(50, 400, 300, 100);
+			restart.addActionListener(cl3);
+			exit.addActionListener(cl3);
+			
+			Font myFont = new Font("Serif", Font.BOLD, 50);
+			
+			reveal.setFont(myFont);
+			talk.setFont(myFont);
+			restart.setFont(myFont);
+			exit.setFont(myFont);
+			this.setVisible(true);
+		}
+		
+		private class ClickListener3 implements ActionListener { 
+
+		    public void actionPerformed(ActionEvent e) {
+
+		    	if(e.getSource() == exit)
+		    		System.exit(0);
+		    	if(e.getSource() == restart) {
+		    		restarting();
+		    	}
+		    }
+		}
+		
 	}
 	
 	public class end extends JFrame {
